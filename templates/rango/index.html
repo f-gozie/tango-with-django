@@ -1,13 +1,18 @@
-<!DOCTYPE html>
+{% extends 'rango/base.html' %}
 {% load staticfiles %}
-<html>
-<head>
-	<title>RANGO</title>
-</head>
-<body>
+
+{% block title_block %}
+	RANGO
+{% endblock %}
+
+{% block body_block %}
 	<h1>Rango says...</h1>
 	<div>
-		Hey there partner! <br>
+		{% if user.is_authenticated %}
+			Hello, {{ user.username }}!
+		{% else %}
+			Hello, Unregistered Fellow.
+		{% endif %}
 		<strong>{{ boldmessage }}</strong><br>
 	</div>
 		<h1>Most Liked Categories</h1>
@@ -16,7 +21,7 @@
 	<ul>
 		{% for category in categories %}
 			<li>
-			<a href = "/rango/category/{{ category.slug }}">{{ category.name }}</a>
+			<a href = "{% url 'show_category' category.slug %}">{{ category.name }}</a>
 			</li>
 		{% endfor %}
 	</ul>
@@ -33,10 +38,17 @@
 		{% endfor %}
 	</ul>
 	{% endif %}
-	<div>
-		<a href="/rango/about/">About Rango</a><br>
-		<a href="/rango/add_category/">Add Category</a><br>
-		<img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/>
-	</div>
-</body>
-</html>
+	<ul>
+	{% if user.is_authenticated %}
+		<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
+		<li><a href="{% url 'logout' %}">Logout</a></li>
+	{% else %}
+		<li><a href="{% url 'login' %}">Login</a></li>
+		<li><a href="{% url 'register' %}">Register</a></li>
+	{% endif %}
+		<li><a href="{% url 'add_category' %}">Add a New Category</a></li>
+		<li><a href="{% url 'about' %}">About</a></li>
+		<li><a href="{% url 'index' %}">Index</a></li>
+		<div><img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/></div>
+	</ul>
+{% endblock %}
