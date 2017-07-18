@@ -15,7 +15,8 @@
 		{% endif %}
 		<strong>{{ boldmessage }}</strong><br>
 	</div>
-		<h1>Most Liked Categories</h1>
+		<h1>Most Liked Categories</h1><br>
+		<p>Number of Visits = {{ visits }}</p>
 	<div>
 	{% if categories %}
 	<ul>
@@ -38,6 +39,7 @@
 		{% endfor %}
 	</ul>
 	{% endif %}
+	<div><img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/></div>
 	<ul>
 	{% if user.is_authenticated %}
 		<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
@@ -49,6 +51,5 @@
 		<li><a href="{% url 'add_category' %}">Add a New Category</a></li>
 		<li><a href="{% url 'about' %}">About</a></li>
 		<li><a href="{% url 'index' %}">Index</a></li>
-		<div><img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/></div>
 	</ul>
 {% endblock %}
