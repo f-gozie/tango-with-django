@@ -9,11 +9,12 @@
 	{% if category %}
 		<h1>{{ category.name }}</h1>
 
+		<div id="pages">
 		{% if pages %}
 		<a href ='/'>Index</a>
 			<ul>
 			{% for page in pages %}
-				<li><a href="{{ page.url }}">{{ page.title }}</a></li>
+				<li><a href="{% url 'goto' %}?page_id={{page.id}}">{{ page.title }}</a></li>
 			{% endfor %}
 			</ul>
 		{% else %}

@@ -2,54 +2,62 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	RANGO
+	Index
 {% endblock %}
 
 {% block body_block %}
-	<h1>Rango says...</h1>
-	<div>
+<div class="jumbotron">
+	<h1 class='display-3'>This is where something cool stays...</h1>
 		{% if user.is_authenticated %}
-			Hello, {{ user.username }}!
+			Hello, {{ user.username.title }}! You've had {{ visits }} visit(s) on this site.
 		{% else %}
 			Hello, Unregistered Fellow.
 		{% endif %}
 		<strong>{{ boldmessage }}</strong><br>
-	</div>
-		<h1>Most Liked Categories</h1><br>
-		<p>Number of Visits = {{ visits }}</p>
-	<div>
+</div>
+<div class="row marketing">
+	<div class='col-lg-6'>
+	<h4>Most Liked Categories</h4>
+	<p>
 	{% if categories %}
-	<ul>
+	<ul class="list-group">
 		{% for category in categories %}
-			<li>
+			<li class="list-group-item">
 			<a href = "{% url 'show_category' category.slug %}">{{ category.name }}</a>
-			</li>
+			</li class="list-group-item">
 		{% endfor %}
 	</ul>
 	{% else %}
 		<strong>There are no categories present.</strong>
 	{% endif %}
+	</p>
 	</div>
-	<h1>Most Viewed Pages</h1>
-	<div>
-	{% if views %}
-	<ul>
-		{% for view in views %}
-			<li><a href ='{{ view.url }}'>{{ view.title }}</a></li>
+	<div class='col-lg-6'>
+	<h4>Most Viewed Pages</h4>
+	<p>
+	{% if pages %}
+	<ul class="list-group">
+		{% for page in pages %}
+			<li class="list-group-item"><a href ='{{ page.url }}'>{{ page.title }}</a></li>
 		{% endfor %}
-	</ul>
-	{% endif %}
-	<div><img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/></div>
-	<ul>
-	{% if user.is_authenticated %}
-		<li><a href="{% url 'restricted' %}">Restricted Page</a></li>
-		<li><a href="{% url 'logout' %}">Logout</a></li>
+	</ul class="list-group">
 	{% else %}
-		<li><a href="{% url 'login' %}">Login</a></li>
-		<li><a href="{% url 'register' %}">Register</a></li>
+		<strong>There are no pages present.</strong>
 	{% endif %}
-		<li><a href="{% url 'add_category' %}">Add a New Category</a></li>
-		<li><a href="{% url 'about' %}">About</a></li>
-		<li><a href="{% url 'index' %}">Index</a></li>
-	</ul>
+	</p>
+	</div>
+</div>
+	<div><img src = "{% static 'images/image.jpg' %}" alt="Rango picture"/></div>
+	<!-- <ul class="li class="list-group-item"st-group">
+	{% if user.is_authenticated %}
+		<li class="list-group-item"><a href="{% url 'restricted' %}">Restricted Page</a></li class="list-group-item">
+		<li class="list-group-item"><a href="{% url 'auth_logout' %}">Logout</a></li class="list-group-item">
+	{% else %}
+		<li class="list-group-item"><a href="{% url 'auth_login' %}">Login</a></li class="list-group-item">
+		<li class="list-group-item"><a href="{% url 'registration_register' %}">Register</a></li class="list-group-item">
+	{% endif %}
+		<li class="list-group-item"><a href="{% url 'add_category' %}">Add a New Category</a></li class="list-group-item">
+		<li class="list-group-item"><a href="{% url 'about' %}">About</a></li class="list-group-item">
+		<li class="list-group-item"><a href="{% url 'index' %}">Index</a></li class="list-group-item">
+	</ul class="li class="list-group-item"st-group"> -->
 {% endblock %}

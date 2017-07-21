@@ -2,16 +2,13 @@
 {% load staticfiles %}
 
 {% block title_block %}
-	Rango
+	Add Page
 {% endblock %}
 
 {% block body_block %}
-	<h1>Add a Page</h1>
-	<div>
 		{% if category %}
-
-		<form id='page_id' method='POST' action="{% url 'show_category' category.slug %}">
-			
+		<form role='form' id='page_form' method='POST' action="{% url 'show_category' category.slug %}">
+		<h1 class="form-signin-heading">Add a Page to <a href="{% url 'show_category' category.slug %}">{{ category.name }}</a></h1>	
 			{% csrf_token %}
 			{% for hidden in form.hidden_fields %}
 				{{ hidden }}
@@ -22,10 +19,10 @@
 				{{ field.help_text }}
 				{{ field }}
 			{% endfor %}
-
-			<input type='submit' name='submit' value='Add Page' />
+			<br/>
+			<button class="btn btn-primary" type="submit" name="submit">Add Page</button>
 		</form>
 		{% else %}
-			The specified category does not exist!
+			<p>The specified category does not exist!</p>
 		{% endif %}
 {% endblock %}
